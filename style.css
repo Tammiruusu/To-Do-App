@@ -5,3 +5,115 @@
     --accent-color: #00FFC4;
     --text-color: #F9F9F9;
 }
+
+
+/*Kun padding ja Margin alussa nollanna, saa kaikki suoraan nolattua*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Tekstiä varten asetukset, Fontin väri haettu ROOTISTA*/
+html{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16pt;
+    color: var(--text-color);
+}
+
+/*Bodyssa annettu minimipituus, vähän paddingiä sekä taustaväri haettu rootista. Flex myös käytössä responsiivisuuden lisäämiseksi*/
+body{
+    min-height: 100vh; /*Koko näytön kokoinen*/
+    padding: 10px;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column; /*Flexbox järjestää tavarat nyt pystysuoraan*/
+    align-items: center; /*Keskittää itemit*/
+}
+
+h1 {
+    margin-top: 100px;
+    margin-bottom: 20px;
+    font-size: 3rem; /*h1 otsikko on nyt 3 kertaa suurempi kuin standardi fontti koko*/
+    font-weight: 800; 
+    text-transform: uppercase; 
+    text-align: center;
+    color: var(--accent-color);
+}
+
+.wrapper {
+    width: 700px; /*suurilla näytöillä leveys on 700px*/
+    max-width: 100%; /*huolehtii, että pienemmillä laitteilla leveys on 100%*/
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /*Itemien välissä pieni hengitysrako*/
+}
+
+#todo-input {
+    box-sizing: border-box; /*Pitää kaikki nätisti supussa, vaikka lisäisi paddingiä, helpompi hallita layoutia ja designia, eli height ja width hallitsevat design elementtiä. Kun taas padding ja border vaikuttavat sisennetysti*/
+    padding: 12px 20px; 
+    width: 100%; /*input field on nyt koko Wrapperin kokoinen*/
+    background: none;
+    border: 2px solid var(--secondary-color);
+    border-radius: 1000px; /*pyöristetyt kulmat*/
+    font: inherit; /*perii aiemmat fonttiasetukset*/
+    color: var(--text-color);
+    caret-color: var(--accent-color);
+}
+
+
+/*Poistaa Input kentän 'Highlight' elementin, eri selaimilla on eriväriset highlight värit, kun aloitat kirjoittamisen, jotka saattavat häiritä Appin ulkoasua*/
+#todo-input:focus {
+    outline: none;
+}
+
+
+/*siirretään Add button input-kentän oikeaan reunaan, koska right ja top on 0*/
+form {
+    position: relative;
+}
+
+#add-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*Buttonin tyylit alla*/
+    background-color: var(--accent-color);
+    height: 100%;
+    padding: 0 30px;
+    border: none;
+    border-radius: 1000px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--background);
+    cursor: pointer;
+}
+
+.todo {
+    margin-bottom: 10px;
+    padding: 0 16px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+
+/*Koska alussa oli määritetty todo padding ja margin 0:ksi, nyt saadaan muokattua niin että teksti kasvaa*/
+.todo .todo-text{
+    padding: 15px;
+    padding-right: 0;
+    flex-grow: 1; /*varmistaa, että teksti osuus vie niin paljon tilaa kuin parent-elementti sallii, työntää iconit reunoihin*/
+}
+
+
+/*Flexbox keskittää delete buttonin keskelle pystyy- ja vaakasuoraan Justifyn ja alingin takia. Nappi tausta katosi myös, nyt näkyy vain iconi*/
+.delete-button{
+    padding: 3px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
