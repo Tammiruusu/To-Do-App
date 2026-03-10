@@ -117,3 +117,15 @@ form {
     align-items: center;
     cursor: pointer;
 }
+
+
+/*Delete button vaihtaa väriä nätimmin*/
+.delete-button svg {
+    transition: 200ms ease;
+}
+
+.delete-button:hover svg {
+    fill: red;
+}
+
+
