@@ -27,16 +27,27 @@ function addTodo(){
     //Ylhäällä trim poistaa välilyönnit, joten se ei lasketa 'pituuteen/length'
 
     if(todoText.length > 0){
-    //Käytetään PUSH metodia, jotta voidaan työntää input kentän teksti arrayhin
-    allTodos.push(todoText);
-    //palauttaa päivitetyn listan, oli sinne lisätty tai poistettu asioita
-    updateTodoList();
-    //Kutsutaan todon tallentaja funktiota, jolloin luodut muutokset menevät suoraan
-    //LOcal storageen.
-    saveTodos();
-    //Kun todo lisätty, alla oleva komento tyhjentää kentän, tapahtuu vain jos käyttäjä
-    //lisää tekstiä, koska if lausekkeen sisällä
-    todoInput.value = "";
+
+        //Tallennamme todot objektina, jotta kun sivua päivitetään, array muistaa oliko
+        //todo/task DONE
+        //completed on automaattisesti false
+        const todoObject = {
+            text: todoText,
+            completed: false
+        }
+
+        //Käytetään PUSH metodia, jotta voidaan työntää input kentän teksti arrayhin
+        //työnnetään objekti teksti kohtaan, mutta nyt pitää muokata update funktiota, 
+        // muuten näkyy vain Object, object eli olio olio
+        allTodos.push(todoObject);
+        //palauttaa päivitetyn listan, oli sinne lisätty tai poistettu asioita
+        updateTodoList();
+        //Kutsutaan todon tallentaja funktiota, jolloin luodut muutokset menevät suoraan
+        //LOcal storageen.
+        saveTodos();
+        //Kun todo lisätty, alla oleva komento tyhjentää kentän, tapahtuu vain jos käyttäjä
+        //lisää tekstiä, koska if lausekkeen sisällä
+        todoInput.value = "";
     }
 }
 
@@ -61,6 +72,9 @@ function createTodoItem(todo, todoIndex){
     //Luodaan uusi lista elementti, jotta voidaan lisätä todo input kentän tekstit näkyville
     //Create elementin kautta, "li" luo lista itemin
     const todoLI = document.createElement("li");
+    //Koska nyt tallennamme OLION/Object, pitää tehdä muokkaus koodiin, jotta
+    //tieto saadaan taas sivulle näkyviin
+    const todoText = todo.text;
     //Annetaan listalle luokka TODO, niin se saa CSS:stä muokkaukset jotka teimme
     todoLI.className = "todo"; 
     //``tärkeät, jotta voidaan käyttää useata templatea samaan aikaan
@@ -73,7 +87,7 @@ function createTodoItem(todo, todoIndex){
             </svg>
         </label>
         <label for="${todoId}" class="todo-text">
-            ${todo}
+            ${todoText}
         </label>
         <button class="delete-button">
             <svg fill="var(--secondary-color)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/>
@@ -90,7 +104,21 @@ function createTodoItem(todo, todoIndex){
         deleteTodoItem(todoIndex);
     })
 
-
+    //kaappaamme checkboxin queryselectorilla, jolloin saamme käsiimme tiedon
+    //kun checkboxia on käytetty ja tallennetaan se tila arrayhin
+    //jotta localstorage muistaa ensikerralla, oli todo tehty vai ei
+    const checkbox = todoLI.querySelector("input");
+    //lisäämme tapahtumakuuntelijan, joka tarkkailee checkboxin muutosta
+    //jos se muutttuu, nuolifunktio tallentaa tilan listalle
+    //TodoIndex varmistaa, että kyseessä on oikea checkbox listalta
+    checkbox.addEventListener("change", ()=>{
+        allTodos[todoIndex].completed = checkbox.checked;
+        saveTodos();
+    })
+    //Tällä koodin pätkällä haetaan tieto Local storagesta, 
+    //jos se on totta, pysyy Checkbox ruksittuna kun sivua
+    //päivittää
+    checkbox.checked = todo.completed;
 
     //Palauttaa lisätyn asian Arrayhin, jolloin muutos tulee näkyviin
     return todoLI;
