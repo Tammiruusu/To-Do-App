@@ -6,7 +6,8 @@ const todoInput = document.getElementById('todo-input');
 const todoListUL = document.getElementById('todo-list');
 
 //Luodaan TYHJÄ Array/lista jonne tallennetaan kaikki todo:t 
-let allTodos = [];
+let allTodos = getTodos();
+updateTodoList();
 
 //Lisätään kuuntelija, joka aktivoituu submittia(ADD-BUTTON) painamalla
 //Ja toteuttaa annetun funktion
@@ -30,6 +31,9 @@ function addTodo(){
     allTodos.push(todoText);
     //palauttaa päivitetyn listan, oli sinne lisätty tai poistettu asioita
     updateTodoList();
+    //Kutsutaan todon tallentaja funktiota, jolloin luodut muutokset menevät suoraan
+    //LOcal storageen.
+    saveTodos();
     //Kun todo lisätty, alla oleva komento tyhjentää kentän, tapahtuu vain jos käyttäjä
     //lisää tekstiä, koska if lausekkeen sisällä
     todoInput.value = "";
@@ -78,5 +82,34 @@ function createTodoItem(todo, todoIndex){
     `
     //Palauttaa lisätyn asian Arrayhin, jolloin muutos tulee näkyviin
     return todoLI;
+}
+
+//Tallenetaan tällä funktiolla Todo array LOcal Storageen
+//Tai kun tulee muutoksia
+function saveTodos(){
+    //VAIN Merkkijonoja voi tallentaa LocalStorageen, joten meidän pitää
+    //Muuttaa Array merkkijonoksi, muuttamalla tieto Json muotoon
+    const todosJson = JSON.stringify(allTodos);
+    //Local storage object löytyy suoraan emmeteistä
+    //Monta metodia, get, set, remove ja clear
+    //Tiedon tallentamiseen käytetään SetItem
+    //SetItem haluaa kaksi arvoa, annanmme sille merkkijonon sekä 
+    //Arrayn jonka loimme alussa, allTodos, joka on muutettu yllä mainitun 
+    //muuttujan kautta nyt merkkijonoksi
+    localStorage.setItem("todos", todosJson);
+}
+//Functiota täytyy kutsua, jotta se aktivoituu
+saveTodos();
+
+function getTodos(){
+    //Luodaan funktio, jolla kutsutaan todo tiedot esiin 
+    //LOcal Storagesta, käytetään metodia getItem
+    //KOska ilman tätä tieto ei lataudu local storagesta
+    //Luodaan OR rakenne, jotta local storagesta ei palaudu nullia || 
+    //Nyt jos "todos" on tyhjä, se tallentaa tyhjän arrayn
+    const todos = localStorage.getItem("todos") || "[]";
+    //täytyy palauttaa ne oikeaan muotoon, koska nyt ne on tallennettu 
+    //Merkkijonoksi Jsonina
+    return JSON.parse(todos);
 }
 
