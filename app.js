@@ -80,9 +80,40 @@ function createTodoItem(todo, todoIndex){
             </svg>
         </button>
     `
+
+    //Tällä linkitetään luomamme Delete iconi, jolloin se poistaa todon
+    //Queryselectorilla nappaamme kiinni yllä antamaamme HTML koodiin ja Delete iconiin
+    const deleteButton = todoLI.querySelector(".delete-button");
+    //Annamme Deletebuttonille Event listenerin, nuoli funktiolla annamme 
+    //mitä tapahtuu kun KLICK tulee, eli poistamaan todon
+    deleteButton.addEventListener("click", () => {
+        deleteTodoItem(todoIndex);
+    })
+
+
+
     //Palauttaa lisätyn asian Arrayhin, jolloin muutos tulee näkyviin
     return todoLI;
 }
+
+//Luodaan delete funktio, joka on linkitetty CreateTodoItemin kanssa, koska
+//käytämme DELETE nappia, mikä on html koodissa annettu
+function deleteTodoItem(todoIndex){
+    //Filteröimme oikean Todo kohdan FILTER metodin avulla
+    //Metodi palauttaa joko totta tai väärin, haluamme että
+    //metodi palauttaa FALSE, jotta se poistaa kyseisen 
+    //kohdan listaltamme
+    //Tämä luo uuden arrayn, kopion entisestä, jossa EI OLE
+    //kyseistä merkintää, minkä kohdalla olemme DELETEÄ käyttänyt
+    allTodos = allTodos.filter((_, i) => i !== todoIndex);
+    //uusi lista pitää tallentaa, muuten siintä ei ole mitään hyötyä
+    saveTodos();
+    //listä pitää myös päivittää
+    updateTodoList();
+}
+
+
+
 
 //Tallenetaan tällä funktiolla Todo array LOcal Storageen
 //Tai kun tulee muutoksia
