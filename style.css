@@ -13,12 +13,9 @@
     padding: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
-
-
 /*Tekstiä varten asetukset, Fontin väri haettu ROOTISTA*/
 html{
-    font-family: "Jacquard 24", system-ui;
+    font-family: "New Rocker", system-ui;
     font-size: 16pt;
     color: var(--text-color);
 }
@@ -42,7 +39,7 @@ body{
 h1 {
     margin-top: 100px;
     margin-bottom: 20px;
-    font-size: 3rem; /*h1 otsikko on nyt 3 kertaa suurempi kuin standardi fontti koko*/
+    font-size: 5rem; /*h1 otsikko on nyt 3 kertaa suurempi kuin standardi fontti koko*/
     font-weight: 800; 
     text-transform: uppercase; 
     text-align: center;
@@ -195,8 +192,16 @@ input[type="checkbox"]{
 
 /*ENTRANCE PAGE STYLES*/
 
+.Welcometxt {
+    font-size: 6rem;
+    text-shadow:
+        -2px -2px 0 var(--primary-color),
+        2px -2px 0 var(--primary-color),
+        -2px  2px 0 var(--primary-color),
+        2px  2px 0 var(--primary-color);
+}
+
 #enterBTN {
-    
     background-color: var(--accent-color);
     height: 100%;
     padding: 5px 70px;
@@ -210,15 +215,25 @@ input[type="checkbox"]{
 
 }
 
+#enterBTN:hover{
+    background: var(--background);
+    border: 1px solid var(--accent-color);
+    color: var(--text-color);
+    padding: 20px 120px;
+    transform: scale(1.05);
+    transition: ease-in 0.5s;
+}
+
 footer {
-    background-color: #222;
-    color: #fff;
+    background-color: rgba(0, 0, 0, 0.2); 
+    color: var(--text-color);
+    padding: 20px;
+    text-align: center;
     font-size: 14px;
     bottom: 0;
     position: fixed;
     left: 0;
     right: 0;
-    text-align: center;
     z-index: 999;
 }
 
@@ -226,12 +241,8 @@ footer p {
     margin: 10px 0;
 }
 
-footer i {
-    color: red;
-}
-
 footer a {
-    color: #3c97bf;
+    color: var(--accent-color);
     text-decoration: none;
 }
 
