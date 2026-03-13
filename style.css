@@ -1,9 +1,9 @@
 :root{
-    --background: #101114;
-    --primary-color: #1C1D20;
-    --secondary-color: #4A4D57;
-    --accent-color: #00FFC4;
-    --text-color: #F9F9F9;
+    --background: #0C0D07;
+    --primary-color: #242616;
+    --secondary-color: #53593C;
+    --accent-color: #A3F150;
+    --text-color: #ECF2DF;
 }
 
 
@@ -13,16 +13,24 @@
     padding: 0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
+
 
 /*Tekstiä varten asetukset, Fontin väri haettu ROOTISTA*/
 html{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Jacquard 24", system-ui;
     font-size: 16pt;
     color: var(--text-color);
 }
 
 /*Bodyssa annettu minimipituus, vähän paddingiä sekä taustaväri haettu rootista. Flex myös käytössä responsiivisuuden lisäämiseksi*/
 body{
+    background-image: url(/Images/Leaves-BG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background 0.3s ease-in-out;
     min-height: 100vh; /*Koko näytön kokoinen*/
     padding: 10px;
     background-color: var(--background);
@@ -126,7 +134,7 @@ form {
 }
 
 .delete-button:hover svg {
-    fill: red;
+    fill: #BB000C;
 }
 
 /*tehdään ympyrä DONE iconin ympärille, ja varmistetaan, että se pysyy ympyränä*/
@@ -184,3 +192,50 @@ input[type="checkbox"]{
         font-size: 15vw; /*viewpointwidth, eli ihan pienillä mobiiliruuduilla, otsikko on pienempi verrattuna hiukan isompiin mobiili ruutuihin*/
     }
 }
+
+/*ENTRANCE PAGE STYLES*/
+
+#enterBTN {
+    
+    background-color: var(--accent-color);
+    height: 100%;
+    padding: 5px 70px;
+    border: none;
+    border-radius: 1000px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--background);
+    cursor: pointer;
+    margin-top: 50px;
+
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer i {
+    color: red;
+}
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+}
+
+.Welcometxt {
+    margin-top: 300px;
+}
+

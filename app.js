@@ -172,3 +172,5 @@ function getTodos(){
     return JSON.parse(todos);
 }
 
+
+//ENTRANCE PAGE JS
