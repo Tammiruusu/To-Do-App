@@ -220,7 +220,7 @@ input[type="checkbox"]{
     background: var(--background);
     border: 1px solid var(--accent-color);
     color: var(--text-color);
-    padding: 20px 120px;
+    padding: 10px 85px;
     transform: scale(1.05);
     transition: ease-in 0.5s;
 }
