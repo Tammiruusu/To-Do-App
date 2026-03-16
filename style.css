@@ -251,3 +251,79 @@ footer a {
     margin-top: 300px;
 }
 
+
+/*LÄPINÄKYVÄ MENU*/
+
+nav {
+        position: fixed;
+        top: 20px;
+        width: 90%;
+        max-width: 1000px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 25px;
+        background: rgba(36, 38, 22, 0.2);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--secondary-color);
+        color: var(--text-color);
+        z-index: 1000;
+    }
+
+    nav .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        color: var(--accent-color);
+    }
+
+    /* MOBIILI MENU */
+    .menu-toggle {
+        display: none;
+        font-size: 12pt;
+        cursor: pointer;
+    }
+
+
+    @media (max-width: 500px) {
+        nav ul {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: rgba(36, 38, 22, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-color);
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+            display: none;
+        }
+
+        nav ul.active {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+    }
+
