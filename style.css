@@ -22,7 +22,7 @@ html{
 
 /*Bodyssa annettu minimipituus, vähän paddingiä sekä taustaväri haettu rootista. Flex myös käytössä responsiivisuuden lisäämiseksi*/
 body{
-    background-image: url(/Images/Leaves-BG.jpg);
+    background-image: url(/Images/Todo-Background.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
