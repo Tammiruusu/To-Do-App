@@ -2,6 +2,7 @@
 
 //Muistiinpano Array, johon tallennetaan muistiinpano Localia käyttäen
 let notes = [];
+let editingNoteId = null
 
 
 //Funktio joka tuo muistiinpanot listalta ja parsettaa ne luettavaan muotoon
@@ -50,6 +51,16 @@ function saveNotes() {
     localStorage.setItem('quickNotes', JSON.stringify(notes))
 }
 
+//Poisto nappi toimintaan filteriä käyttäen.
+//Koska meillä on jo kyseisin muistiinpanon ID, kun nappia painetaan
+//Filteri metodi tietää, mikä muistiinpano jää uuden listan kopiosta pois
+//Näin saamme poistettua muistiinpanoja
+function deleteNote(noteId) {
+    notes = notes.filter(note => note.id != noteId)
+    saveNotes()
+    renderNotes()
+}
+
 
 function renderNotes() {
     const notesContainer = document.getElementById('notesContainer');
@@ -78,19 +89,32 @@ function renderNotes() {
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
             <div class="note-actions">
-            <button class="edit-btn" onclick="openNoteDialog()" title="Edit Note">
-                
+            <button class="edit-btn" onclick="openNoteDialog('${note.id}')" title="Edit Note">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path d="m381-240 424-424-57-56-368 367-169-170-57 57 227 226Zm0 113L42-466l169-170 170 170 366-367 172 168-538 538Z"/>
+                </svg>
+            </button>
+            <button class="delete-btn" onclick="deleteNote('${note.id}')" title="delete Note">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/>
+                </svg>
+            </button>
+            </div>
         </div>
         ` ).join('')
     //JOIN metodi tuo meille merkkijonon näkyviin listan sijaan, jotta siintä tulee yksittäinen merkkijono
 }
 
 //Funktio joka avaa muistiinpanot
-function openNoteDialog() {
+function openNoteDialog(noteId) {
     //Elementit kaapattu ID:n kautta Notes.html:stä
     const dialog = document.getElementById('noteDialog');
     const titleInput = document.getElementById('noteTitle');
     const contentInput = document.getElementById('noteContent');
+
+    if(noteId) {
+        
+    }
 
     //avaa dialogi/muistiinpano ikkunan
     dialog.showModal();
