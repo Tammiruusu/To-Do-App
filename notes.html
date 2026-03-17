@@ -6,7 +6,7 @@
     <title>To Do App</title>
     <link rel="stylesheet" href="style.css">
     <!--Defer käsky Scriptissä suorittaa JS:n vasta kun html ja css ovat ladanneet ensin-->
-    <script src="app.js" defer></script>
+    <script src="notes.js" defer></script>
     <style>@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
     </style>
 </head>
@@ -46,7 +46,7 @@
             </div>
 
             <!--Title, textarea sekä sulkunappi-->
-            <form class="noteForm">
+            <form id="noteForm">
                 <div class="form group">
                     <label for="noteTitle" class="form-label"> Title</label>
                     <input type="text" id="noteTitle" class="form-input" placeholder="Enter note title..." required>
