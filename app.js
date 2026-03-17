@@ -189,10 +189,40 @@ function getTodos(){
 
 //NOTES JAVASCRIPT OSUUS
 
+//Muistiinpano Array, johon tallennetaan muistiinpano Localia käyttäen
 let notes = [];
 
+//Funktio joka avaa muistiinpanot
 function openNoteDialog() {
+    //Elementit kaapattu ID:n kautta Notes.html:stä
     const dialog = document.getElementById('noteDialog');
     const titleInput = document.getElementById('noteTitle');
     const contentInput = document.getElementById('noteContent');
+
+    //avaa dialogi/muistiinpano ikkunan
+    dialog.showModal();
+    titleInput.focus();
+
+};
+
+//Muistiinpano sulku ikkuna
+function closeNoteDialog() {
+    //Kaapattu Notedialog ID jotta se voidaan sulkea
+    document.getElementById('noteDialog').close()
+
 }
+
+
+//Tärkein Eventlistener, se odottaa, että kaikki pää elementit on ladattu
+//Ja sillä saadaan suljettua Muistiinpano ikkuna, kun klikataan ikkunan
+//ulkopuolelle, sekä submit tapahtuma
+document.addEventListener('DOMContentLoaded', function() {
+
+    //Suljetaan notedialog käyttäen kuuntelijaa, jos klikataan muualle kuin Event.targetiin,
+    //funktio käyttää closeNoteDialog funktiota ja sulkee Muistiinpano ikkunan
+    document.getElementById('noteDialog').addEventListener('click', function(event) {
+        if(event.target === this) {
+            closeNoteDialog()
+        }
+    })
+})
