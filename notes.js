@@ -4,6 +4,13 @@
 let notes = [];
 
 
+//Funktio joka tuo muistiinpanot listalta ja parsettaa ne luettavaan muotoon
+//Sivulle
+function loadNotes() {
+    const savedNotes = localStorage.getItem('quickNotes')
+    return savedNotes ? JSON.parse(savedNotes) : []
+}
+
 function saveNote(event) {
 
     //Estää, kun submit buttonia painetaan, että sivu ei lataudu uudestaan
@@ -26,6 +33,7 @@ function saveNote(event) {
 
     //Kutsutaan funktiota SaveNotes, joka tallentaa ne JSON tiedostona LOCALSTORAGEEN
     saveNotes()
+    renderNotes()
 
 }
 
@@ -43,8 +51,39 @@ function saveNotes() {
 }
 
 
+function renderNotes() {
+    const notesContainer = document.getElementById('notesContainer');
+
+    //jos ei ole muistiinpanoja, tällä ja pienillä HTML tägeillä sivu ei ole ihan tyhjä
+    //vaan kutsuu käyttäjän lisäämään muistiinpanoja
+    if(notes.length === 0) {
+        notesContainer.innerHTML = `
+        <div class="empty-state">
+            <h2> No notes yet </h2>
+            <p>Create your first note to get started!</p>
+            <button class="add-note-btn" onclick="openNoteDialog()">+ Add your first note </button>
+            </div>
+        `
+        return
+    }
 
 
+    //Tällä tuomme muistiinpanot esiin, jos niitä on
+    //HTML tägeihin tuomme muistiinpanojen otsikot ja teksti sisällön
+    //Ne pitää mapata, että ne saadaan näkyviin arraysta, koska niitä on monta
+    // ja että ne tulevat kaikki nätisti näkyviin, Mapilla saamme aina yhden objektin näkyviin jokaiseen
+    //lohkoon. 
+    notesContainer.innerHTML = notes.map(note => `
+        <div class="notes-card">
+            <h3 class="note-title">${note.title}</h3>
+            <p class="note-content">${note.content}</p>
+            <div class="note-actions">
+            <button class="edit-btn" onclick="openNoteDialog()" title="Edit Note">
+                
+        </div>
+        ` ).join('')
+    //JOIN metodi tuo meille merkkijonon näkyviin listan sijaan, jotta siintä tulee yksittäinen merkkijono
+}
 
 //Funktio joka avaa muistiinpanot
 function openNoteDialog() {
@@ -71,6 +110,12 @@ function closeNoteDialog() {
 //Ja sillä saadaan suljettua Muistiinpano ikkuna, kun klikataan ikkunan
 //ulkopuolelle, sekä submit tapahtuma
 document.addEventListener('DOMContentLoaded', function() {
+    
+    notes = loadNotes()
+    console.log("Notes before rendering:", notes)
+
+    //tällä tuomme muistiinpanot näkyviin, kun DOMcontent on ladannut
+    renderNotes()
 
     //Tallentaa Muistiinpanot, odottaa Submit napin toimintaa
     document.getElementById('noteForm').addEventListener('submit', saveNote);
