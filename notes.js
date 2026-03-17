@@ -113,7 +113,11 @@ function openNoteDialog(noteId) {
     const contentInput = document.getElementById('noteContent');
 
     if(noteId) {
-        
+       //muokkaustila
+        const noteToEdit = notes.find(note => )
+
+    } else {
+        //lisää uusi muistiinpano
     }
 
     //avaa dialogi/muistiinpano ikkunan
