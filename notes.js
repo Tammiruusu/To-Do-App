@@ -114,10 +114,24 @@ function openNoteDialog(noteId) {
 
     if(noteId) {
        //muokkaustila
-        const noteToEdit = notes.find(note => )
+       //Tällä koodin pätkällä löydämme oikean muistiinpanon, joka muokkaamme
+       //local storagesta notes.find methodilla etsimme local storagesta
+       //ID:n kautta juuri sen mihin olemme klikanneet EDIT kohdassa
+        const noteToEdit = notes.find(note => note.id === noteId)
+        //Vaihdamme Globaali muuttujan tämän avulla
+        editingNoteId = noteId
+
+        //Tällä pääsemme viimein muokkaamaan muistiinpanoa, haemme EDIT NOTE
+        //elementin ID:n avulla
+        document.getElementById('dialogTitle').textContent = 'Edit Note'
+        //Tällä muokkaamme otsikkoa
+        titleInput.value = noteToEdit.title
+        //Tällä muokkaamme tekstikenttää
+        contentInput.value = noteToEdit.content
 
     } else {
         //lisää uusi muistiinpano
+        
     }
 
     //avaa dialogi/muistiinpano ikkunan
