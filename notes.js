@@ -106,7 +106,8 @@ function renderNotes() {
 }
 
 //Funktio joka avaa muistiinpanot
-function openNoteDialog(noteId) {
+//noteide = null voimme antaa default arvon idhen
+function openNoteDialog(noteId = null) {
     //Elementit kaapattu ID:n kautta Notes.html:stä
     const dialog = document.getElementById('noteDialog');
     const titleInput = document.getElementById('noteTitle');
@@ -131,7 +132,14 @@ function openNoteDialog(noteId) {
 
     } else {
         //lisää uusi muistiinpano
-        
+        //Editing note id on null, koska nyt lisäämme muistiinpanon,
+        //emme muokkaa sit
+        editingNoteId = null
+        //Otsikko muutetaan takaisin lisää uusi muistiinpano
+        document.getElementById('dialogTitle').textContent = "Add New Note"
+        //tekstikentät ovat tyhjiä näillä arvoilla
+        titleInput.value = ''
+        contentInput.value = ''
     }
 
     //avaa dialogi/muistiinpano ikkunan
